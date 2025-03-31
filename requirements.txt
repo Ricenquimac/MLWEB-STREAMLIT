@@ -10,7 +10,6 @@ python-dotenv>=0.20.0
 requests>=2.27.1
 scikit-learn
 seaborn>=0.12.2
-sqlalchemy>=2.0.38
+sqlalchemy>=1.4.37
 sympy>=1.10.1
-xgboost
-streamlit
+template-render>=0.1.0
