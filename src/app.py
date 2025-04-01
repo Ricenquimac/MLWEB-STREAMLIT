@@ -7,23 +7,55 @@ with open("../models/full_pipeline.pkl", "rb") as file:
     pipeline = pickle.load(file)
 
 # Streamlit UI
-st.title("Car Price Prediction 🚗💰")
-
+st.title("Price My Car")
+st.subheader("Car Price Prediction 🚗💰")
 st.markdown("Enter the car details below to get an estimated price.")
 
+# Define make-model mapping
+MODEL_MAPPING = {
+    "Chevrolet": ["Silverado"],
+    "Toyota": ["Camry"],
+    "Nissan": ["Altima"],
+    "Honda": ["Civic"],
+    "Ford": ["F-150"]
+}
+
 # User Input Fields
-make = st.text_input("Car Make", "Toyota")
-model_name = st.text_input("Car Model", "Corolla")
-year = st.number_input("Year", min_value=1980, max_value=2025, value=2015)
-mileage = st.number_input("Mileage", min_value=0, value=50000)
-condition = st.selectbox("Car Condition", ["New", "Used", "Certified"])
+make = st.selectbox(
+    "Car Brand",
+    options=["Chevrolet", "Toyota", "Nissan", "Honda", "Ford"]
+)
+
+model_name = st.selectbox(
+    "Car Model",
+    options=MODEL_MAPPING[make]
+)
+
+year = st.number_input(
+    "Year",
+    min_value=2010,
+    max_value=2020,
+    value=2015
+)
+
+mileage = st.number_input(
+    "Mileage",
+    min_value=10100,
+    max_value=150000,
+    value=50000
+)
+
+condition = st.selectbox(
+    "Car Condition",
+    options=["New", "Used", "Certified"]
+)
 
 # Predict Button
 if st.button("Predict Price"):
     try:
         # Create DataFrame for the model
         input_df = pd.DataFrame([[make, model_name, year, mileage, condition]], 
-                                columns=["Make", "Model", "Year", "Mileage", "Condition"])
+                              columns=["Make", "Model", "Year", "Mileage", "Condition"])
         
         # Make Prediction
         prediction = pipeline.predict(input_df)[0]

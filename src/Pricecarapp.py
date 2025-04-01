@@ -14,7 +14,8 @@ anos = list(range(2010, 2023))
 estados = ['Excellent', 'Good', 'Fair']
 
 # Interfaz de usuario con Streamlit
-st.title("Predicción de Precios de Autos")
+st.title("Price My Car")
+st.subheadertitle("Car Price Prediction")
 
 # Inputs del usuario
 marca = st.selectbox("Marca", marcas)
